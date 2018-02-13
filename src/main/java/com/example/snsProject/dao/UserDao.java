@@ -5,7 +5,7 @@
  */
 package com.example.snsProject.dao;
 
-import org.apache.ibatis.annotations.Delete;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -26,7 +26,8 @@ public interface UserDao {
 
 	
 	
-
+	@Select({"select * from ",TABLE_NAME,"where name = #{name}"})
+	User getUserByName(String name);
 	
 }
  

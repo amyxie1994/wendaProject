@@ -49,9 +49,10 @@ public class IndexController {
 	@Autowired
 	WendaService wendaService;
 	
-	@RequestMapping(path= {"/","/index"},method= {RequestMethod.GET} )
+	@RequestMapping(path= {"/index2"},method= {RequestMethod.GET} )
 	@ResponseBody
 	public String index(HttpSession htsession) {
+		
 		return "hello world"+wendaService.wenda()+htsession.getAttribute("msg");
 		
 	}
