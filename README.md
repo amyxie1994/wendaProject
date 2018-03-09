@@ -1,3 +1,3 @@
 # wendaProject
 
-already updated sixth homework of new cowder website.
+already updated seventh homework of new cowder website.
