@@ -28,7 +28,7 @@
                                         <meta itemprop="answer-id" content="389034">
                                         <meta itemprop="answer-url-token" content="13174385">
                                         <h2 class="feed-title">
-                                            <a class="question_link" target="_blank" href="/question/ ${vo.objs["question"].id}"> ${vo.objs["question"].title}</a></h2>
+                                            <a class="question_link" target="_blank" href="/question/${vo.objs["question"].id}"> ${vo.objs["question"].title}</a></h2>
                                         <div class="feed-question-detail-item">
                                             <div class="question-description-plain zm-editable-content"></div>
                                         </div>

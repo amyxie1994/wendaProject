@@ -43,6 +43,10 @@ public class UserService {
 		return userDao.getUserById(userId);
 	}
 	
+	
+	public User selectByName(String name) {
+		return userDao.getUserByName(name);
+	}
 
 	public Map<String,Object> login(String username,String password) 
 	{

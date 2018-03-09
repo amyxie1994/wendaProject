@@ -12,7 +12,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.example.snsProject.model.Question;
 
@@ -27,8 +28,11 @@ public interface QuestionDAO {
 			@Param("offset") int offset,
 			@Param("limit") int limit);
 	
+	@Select({"select * from " ,TABLE_NAME, "where id = #{id}"})
+	Question selectById(int id);
 	
-
+	@Update({"update ", TABLE_NAME, "set comment_count = #{count} where id = #{id}"})
+	void updateCommentCount(@Param("id") int id,@Param("count") int count);
 	
 }
  
