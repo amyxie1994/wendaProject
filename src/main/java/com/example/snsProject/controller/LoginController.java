@@ -21,6 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.snsProject.async.EventHandler;
+import com.example.snsProject.async.EventModel;
+import com.example.snsProject.async.EventProducer;
+import com.example.snsProject.async.EventType;
 import com.example.snsProject.service.UserService;
 
 /**
@@ -34,7 +38,8 @@ public class LoginController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-	
+	@Autowired
+	EventProducer eventProducer;
 	
 	
 	@Autowired
@@ -65,6 +70,9 @@ public class LoginController {
 			if(rememberme)
 				cookie.setMaxAge(3600*24*5);
 			response.addCookie(cookie);
+			
+			
+			
 			if(StringUtils.isEmpty(next) )
 				return "redirect:/";
 			else
@@ -109,6 +117,10 @@ public class LoginController {
 			if(rememberme)
 				cookie.setMaxAge(3600*24*5);
 			response.addCookie(cookie);
+			
+			eventProducer.fireEvent(new EventModel(EventType.LOGIN)
+					.setExt("username",username).setExt("email","hongzhenx@126.com")
+					.setActorId(31));
 	
 			if(StringUtils.isEmpty(next) )
 				return "redirect:/";

@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSONObject;
 public class JsonFunction {
 
 	 public static int ANONYMOUS_USERID = 11;
+	 public static int SYSTEM_USERID = 4;
 	 
 	// private static final Logger logger = LoggerFactory.getLogger(EncryptAlgorithm.class);
 	 

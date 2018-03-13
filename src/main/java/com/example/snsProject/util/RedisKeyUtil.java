@@ -5,6 +5,8 @@
  */
 package com.example.snsProject.util;
 
+import java.security.KeyStore.PrivateKeyEntry;
+
 /**
  * @author amyxie
  *
@@ -16,6 +18,8 @@ public class RedisKeyUtil {
     private static String BIZ_DISLIKE = "DISLIKE";
     private static String BIZ_EVENTQUEUE = "EVENT_QUEUE";
     
+    
+    
     public static String getLikeKey(int entityType,int entityId) {
     	    return BIZ_LIKE+String.valueOf(entityType)+SPLIT+String.valueOf(entityId);
     }
@@ -23,5 +27,9 @@ public class RedisKeyUtil {
     public static String getDislikeKey(int entityType,int entityId) {
 	    return BIZ_DISLIKE+String.valueOf(entityType)+SPLIT+String.valueOf(entityId);
 }
+    
+    public static String getEventQueueKey() {
+    	return BIZ_EVENTQUEUE;
+    }
 
 }

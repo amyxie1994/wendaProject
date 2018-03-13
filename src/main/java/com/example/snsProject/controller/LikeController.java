@@ -17,9 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.snsProject.async.EventModel;
+import com.example.snsProject.async.EventProducer;
+import com.example.snsProject.async.EventType;
+import com.example.snsProject.model.Comment;
 import com.example.snsProject.model.EntityType;
 import com.example.snsProject.model.HostHolder;
 import com.example.snsProject.model.Question;
+import com.example.snsProject.service.CommentService;
 import com.example.snsProject.service.LikeService;
 import com.example.snsProject.util.JsonFunction;
 
@@ -33,10 +38,17 @@ public class LikeController {
 	private static final Logger logger = LoggerFactory.getLogger(LikeController.class);
 	
 	@Autowired
-	LikeService LikeService;
+	LikeService likeService;
 	
 	@Autowired
 	HostHolder hostHolder;
+	
+	@Autowired
+	EventProducer eventProducer;
+	
+	
+	@Autowired
+	CommentService commentService;
 	
 	
 	@RequestMapping(path= {"/like"},method= {RequestMethod.POST} )
@@ -45,8 +57,16 @@ public class LikeController {
          if(hostHolder.getUser() == null) {
         	 return JsonFunction.getJsonString(999);
 	}
+         Comment comment = commentService.getCommentById(commentId);
+         eventProducer.fireEvent(new EventModel(EventType.LIKE).setActorId(hostHolder.getUser().getId())
+        		 .setEntityType(EntityType.ENTITY_COMMENT).setEntityId(commentId)
+        		 .setEntityOwnerId(comment.getUserId()).setExt("questionId", String.valueOf(comment.getEntityId())));
          
-         long likeCount = LikeService.like(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT, commentId);
+
+
+         
+         
+         long likeCount = likeService.like(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT, commentId);
          return JsonFunction.getJsonString(0,String.valueOf(likeCount));
          
      }
@@ -58,7 +78,7 @@ public class LikeController {
             return JsonFunction.getJsonString(999);
         }
 
-        long likeCount = LikeService.disLike(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT, commentId);
+        long likeCount = likeService.disLike(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT, commentId);
         return JsonFunction.getJsonString(0, String.valueOf(likeCount));
     }
 

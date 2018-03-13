@@ -41,6 +41,15 @@ public class CommentService {
 	public void updateStatus(int entityId,int entityType) {
 		commentDAO.updateStatus(entityId, entityType);
 	}
+
+	/**TODO
+	 * @param commentId
+	 * @return
+	 */
+	public Comment getCommentById(int commentId) {
+		// TODO Auto-generated method stub
+		return commentDAO.getCommentById(commentId);
+	}
 	
 	
 	
